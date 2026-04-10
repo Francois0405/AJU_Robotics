@@ -49,6 +49,7 @@ En el club exploramos el mundo *Maker* utilizando principalmente:
 
 ### **Presencialmente**
 ¡Estaremos encantados de contar contigo! Únete y haz tus ideas realidad.
+
 📧 **Contacto directo:** [fliraud-@student.42barcelona.com](mailto:fliraud-@student.42barcelona.com) (Solicita información aquí).
 
 ### **Desde este repositorio**
