@@ -1,58 +1,58 @@
 # 🤖 Club de Robótica - Asociación Joves Units Poble-sec (AJU)
 
-¡Bienvenidos al repositorio oficial del Club de Robótica de **Joves Units del Poble-Sec**! 
+¡Bienvenidos al repositorio oficial del Club de Robótica de **Joves Units del Poble-Sec**!
 
-Nuestra misión es ofrecer acceso a la tecnología y fomentar el aprendizaje colaborativo (*peer-to-peer*). 
-Resolvemos problemas, trabajamos en equipo y creamos proyectos que despiertan nuestras mentes e interes.
+Nuestra misión es ofrecer acceso a la tecnología y fomentar el aprendizaje colaborativo (*peer-to-peer*). Resolvemos problemas, trabajamos en equipo y creamos proyectos que despiertan nuestras mentes e interés.
 
-> **Nuestra filosofía:** "Aprender creando juntos!".
+> **Nuestra filosofía:** *"¡Aprender creando juntos!"*
 
 ---
 
-## Proyectos Destacados
+## 🚀 Proyectos Destacados
 
-Cada carpeta de este repositorio contiene el código fuente y otros recursos.
+Cada carpeta de este repositorio contiene el código fuente y recursos detallados.
 
-| Proyecto | Descripción en una línea |
+| Proyecto | Descripción |
 | :--- | :--- |
-| **Claudek** | El robot principal del club, con multiples sensores y capaz de seguir lineas y de ser controlado a distancia. |
-| **Space Runner** | Un simple arcade de supervivencia espacial con música, sistema de disparo y guardado de récords. |
-| **Trivia** | Un simple juego de trivia interactivo de 15 preguntas con navegación por joystick. |
+| **🤖 Claudek** | El robot principal del club. Cuenta con múltiples sensores, capaz de seguir líneas y ser controlado a distancia. |
+| **🕹️ Space Runner** | Un arcade de supervivencia espacial con música, sistema de disparo y guardado de récords. |
+| **🧠 Trivia** | Juego de trivia interactivo de 15 preguntas con navegación mediante joystick. |
 
 ---
 
-## Stack Tecnológico Común
+## 🛠️ Stack Tecnológico
 
-En el club utilizamos principalmente las siguientes herramientas:
-- **Microcontroladores:** Arduino Uno, Raspberry 5, ESP32.
-- **Lenguajes:** C++, Markdown para documentación.
-- **Componentes:** Pantallas, joysticks, motores, gran variedad de sensores, resistencias, leds entre muchas otras cosas.
+En el club exploramos el mundo *Maker* utilizando principalmente:
+
+* **Microcontroladores:** Arduino Uno, Raspberry Pi 5, ESP32.
+* **Lenguajes:** C++ (Arduino IDE) y Markdown para documentación.
+* **Componentes:** Pantallas OLED/LCD, joysticks, motores DC/Servos, sensores (ultrasonidos, IR), leds y electrónica básica.
 
 ---
 
-## Miembros y Autores
+## 👥 Miembros y Autores
 
-* **Miembros:**
-   * @Francois0405
-   * Chenyu
-   * Jordi
+* **Integrantes:**
+    * [@Francois0405](https://github.com/Francois0405)
+    * Chenyu
+    * Jordi
 
-* **Agradecimientos:**
-   * **Asociació Joves Units Poble-sec** por brindarnos su apoyo, material, organización y acogida.
-   * **FAB Casa del Mig** por brindarnos espacio donde poder trabajar y apoyar la iniciativa.
+### ❤️ Agradecimientos
+* **Asociació Joves Units Poble-sec:** Por el apoyo, material, organización y acogida.
+* **FAB Casa del Mig:** Por brindarnos el espacio de trabajo y apoyar la iniciativa Maker.
 
 ---
 
 ## 🤝 Contribuir y Unirse
 
-¿Quieres apoyarnos en este proyecto?
+¿Quieres apoyarnos o formar parte del equipo?
 
-**Prensencialmente**
-Estaremos encantados de contar contigo en el equipo, únete y haz tus ideas realidad. Únete al mundo Maker!
-Te invito a mandar un correo electronico para solicitar más información o unirte a mi dirección personal -> fliraud-@student.42barcelona.com
+### **Presencialmente**
+¡Estaremos encantados de contar contigo! Únete y haz tus ideas realidad.
+📧 **Contacto directo:** [fliraud-@student.42barcelona.com](mailto:fliraud-@student.42barcelona.com) (Solicita información aquí).
 
-**Desde este repositorio**
-1. **Haz un Fork** de este repositorio.
+### **Desde este repositorio**
+1. Haz un **Fork** de este repositorio.
 2. Crea una **nueva rama** con tu mejora (`git checkout -b feature/mejora`).
 3. Envía un **Pull Request**.
 
@@ -60,11 +60,12 @@ Te invito a mandar un correo electronico para solicitar más información o unir
 
 ## 📜 Licencia
 
-Todos los proyectos de este repositorio son totalmente públicos, se pueden copiar, utilizar y modificar.
+Todos los proyectos de este repositorio son de **código abierto**. Se pueden copiar, utilizar y modificar libremente bajo la filosofía de compartir conocimiento.
 
 ---
 
-** Web: ** https://jovespoblesec.blogspot.com/
-**📸 Síguenos:** https://www.instagram.com/robotica.jove/
-** Contacto Joves Units: **  jovesunitsps@gmail.com
-**📍 Ubicación:** FAB Casa del Mig
+### 🔗 Enlaces de Interés
+* 🌐 **Web:** [jovespoblesec.blogspot.com](https://jovespoblesec.blogspot.com/)
+* 📸 **Instagram:** [@robotica.jove](https://www.instagram.com/robotica.jove/)
+* 📧 **Email AJU:** [jovesunitsps@gmail.com](mailto:jovesunitsps@gmail.com)
+* 📍 **Ubicación:** [FAB Casa del Mig](https://www.google.com/maps?q=FAB+Casa+del+Mig)
