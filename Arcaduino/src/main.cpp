@@ -3,6 +3,7 @@
 #include <LiquidCrystal_I2C.h>
 #include "SpaceRun.h"
 #include "Trivia.h"
+#include "Jukebox.h"
 #include "pins.h"
 
 // === CREACIÓN OFICIAL DE LA PANTALLA ===
@@ -13,7 +14,8 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 enum ArcaduinoState {
   ESTADO_MENU,
   ESTADO_SPACE,
-  ESTADO_TRIVIA
+  ESTADO_TRIVIA,
+  ESTADO_JUKEBOX
 };
 ArcaduinoState estadoActual = ESTADO_MENU;
 
@@ -21,8 +23,8 @@ ArcaduinoState estadoActual = ESTADO_MENU;
 int juegoSeleccionado = 0;
 int ultimoJuego = -1;
 unsigned long ultimoMovimientoMenu = 0;
-const int TOTAL_JUEGOS = 2;
-String nombresJuegos[] = {"1. Space Runner", "2. Trivia Quiz"};
+const int TOTAL_JUEGOS = 3;
+const char* nombresJuegos[] = {"1. Space Runner", "2. Trivia Quiz, 3. Jukebox"};
 
 // ==========================================
 //                 SETUP
@@ -79,6 +81,8 @@ void handleMenu() {
       estadoActual = ESTADO_SPACE;
     } else if (juegoSeleccionado == 1) {
       estadoActual = ESTADO_TRIVIA;
+    } else if (juegoSeleccionado == 2) {
+      estadoActual = ESTADO_JUKEBOX;
     }
   }
 }
@@ -107,6 +111,12 @@ void loop() {
       // Cuando la Trivia termina, le decimos que vuelva al menú de Arcaduino
       estadoActual = ESTADO_MENU;
       ultimoJuego = -1; // Esto fuerza a que el menú se vuelva a dibujar al volver
+      break;
+
+    case ESTADO_JUKEBOX:
+      runJukebox();
+      estadoActual = ESTADO_MENU;
+      ultimoJuego = -1;
       break;
   }
 }

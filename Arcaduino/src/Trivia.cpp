@@ -17,11 +17,6 @@ void actualizarLEDsPorOpcion(int opcion);
 void comprobarRespuesta(int num, char res);
 void mostrarResultados();
 
-#define IN1 8
-#define IN2 9
-#define IN3 10
-#define IN4 11
-
 int valorX, valorY, estadoBoton;
 int Preguntas = 0;
 int puntuacion = 0;
@@ -103,16 +98,15 @@ const char* const explicaciones[] PROGMEM = {
 char buffer[21];
 
 void setupTrivia() {
-  pinMode(IN1, OUTPUT); pinMode(IN2, OUTPUT); pinMode(IN3, OUTPUT); pinMode(IN4, OUTPUT);
+  pinMode(PIN_LED_1, OUTPUT); pinMode(PIN_LED_2, OUTPUT); pinMode(PIN_LED_3, OUTPUT); pinMode(PIN_LED_4, OUTPUT);
   pinMode(PIN_BOTON, INPUT_PULLUP);
-  
+}
+
+void runTrivia() {
   lcd.clear();
   lcd.setCursor(0, 0); lcd.print("Quiz Game v2.0");
   lcd.setCursor(0, 1); lcd.print("15 Preguntes!");
   delay(2000);
-}
-
-void runTrivia() {
   lcd.clear();
   lcd.setCursor(0, 0); lcd.print("PREPARAT?");
   lcd.setCursor(0, 1); lcd.print("Prem el boto...");
@@ -194,10 +188,10 @@ void mostrarCursor(int opcion) {
 }
 
 void actualizarLEDsPorOpcion(int opcion) {
-  digitalWrite(IN1, opcion == 0);
-  digitalWrite(IN2, opcion == 1);
-  digitalWrite(IN3, opcion == 2);
-  digitalWrite(IN4, opcion == 3);
+  digitalWrite(PIN_LED_1, opcion == 0);
+  digitalWrite(PIN_LED_2, opcion == 1);
+  digitalWrite(PIN_LED_3, opcion == 2);
+  digitalWrite(PIN_LED_4, opcion == 3);
 }
 
 void comprobarRespuesta(int num, char res) {
@@ -225,8 +219,8 @@ void mostrarResultados() {
   lcd.clear();
   lcd.print("FI! Punts: "); lcd.print(puntuacion); lcd.print("/15");
   for(int i=0; i<6; i++) {
-    digitalWrite(IN1, i%2); digitalWrite(IN2, i%2); 
-    digitalWrite(IN3, i%2); digitalWrite(IN4, i%2);
+    digitalWrite(PIN_LED_1, i%2); digitalWrite(PIN_LED_2, i%2); 
+    digitalWrite(PIN_LED_3, i%2); digitalWrite(PIN_LED_4, i%2);
     delay(200);
   }
   delay(3000);
