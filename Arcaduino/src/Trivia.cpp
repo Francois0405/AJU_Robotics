@@ -1,17 +1,26 @@
+#include <Arduino.h>
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <avr/pgmspace.h>
+#include "pins.h"
+#include "Trivia.h"
 
-LiquidCrystal_I2C lcd(0x27, 16, 2);
+// Llamamos a la pantalla que se creará en el main.cpp
+extern LiquidCrystal_I2C lcd;
+
+// --- PROTOTIPOS DE FUNCIONES ---
+void cargarBuffer(const char* const* ptr);
+void mostrarPregunta(int num);
+char seleccionarRespuesta(int numPregunta);
+void mostrarCursor(int opcion);
+void actualizarLEDsPorOpcion(int opcion);
+void comprobarRespuesta(int num, char res);
+void mostrarResultados();
 
 #define IN1 8
 #define IN2 9
 #define IN3 10
 #define IN4 11
-
-const int pinX = A0;
-const int pinY = A1;
-const int pinBoton = 12;
 
 int valorX, valorY, estadoBoton;
 int Preguntas = 0;
@@ -20,7 +29,7 @@ int puntuacion = 0;
 int opcionSeleccionada = 0;
 int ultimaOpcion = -1; // Para evitar parpadeo
 unsigned long ultimoMovimiento = 0;
-int delayMovimiento = 200;
+unsigned long delayMovimiento = 200; // Corregido el Warning (unsigned long)
 
 // ===== STRINGS EN PROGMEM =====
 const char titulo0[] PROGMEM = "Cap. Espanya";
@@ -93,23 +102,21 @@ const char* const explicaciones[] PROGMEM = {
 
 char buffer[21];
 
-void setup() {
+void setupTrivia() {
   pinMode(IN1, OUTPUT); pinMode(IN2, OUTPUT); pinMode(IN3, OUTPUT); pinMode(IN4, OUTPUT);
-  pinMode(pinBoton, INPUT_PULLUP);
-  Serial.begin(9600);
-  lcd.init();
-  lcd.backlight();
+  pinMode(PIN_BOTON, INPUT_PULLUP);
   
+  lcd.clear();
   lcd.setCursor(0, 0); lcd.print("Quiz Game v2.0");
   lcd.setCursor(0, 1); lcd.print("15 Preguntes!");
   delay(2000);
 }
 
-void loop() {
+void runTrivia() {
   lcd.clear();
   lcd.setCursor(0, 0); lcd.print("PREPARAT?");
   lcd.setCursor(0, 1); lcd.print("Prem el boto...");
-  while(digitalRead(pinBoton) == HIGH);
+  while(digitalRead(PIN_BOTON) == HIGH);
   
   lcd.clear();
   puntuacion = 0;
@@ -121,7 +128,7 @@ void loop() {
   mostrarResultados();
 }
 
-void cargarBuffer(const char* ptr) {
+void cargarBuffer(const char* const* ptr) {
   strcpy_P(buffer, (char*)pgm_read_word(ptr));
 }
 
@@ -154,8 +161,8 @@ char seleccionarRespuesta(int numPregunta) {
   opcionSeleccionada = 0;
   ultimaOpcion = -1;
   while(true) {
-    valorX = analogRead(pinX);
-    valorY = analogRead(pinY);
+    valorX = analogRead(PIN_JOY_X);
+    valorY = analogRead(PIN_JOY_Y);
     
     if(millis() - ultimoMovimiento > delayMovimiento) {
       if(valorX < 300) { if(opcionSeleccionada % 2 == 1) opcionSeleccionada--; ultimoMovimiento = millis(); }
@@ -170,7 +177,7 @@ char seleccionarRespuesta(int numPregunta) {
       ultimaOpcion = opcionSeleccionada;
     }
 
-    if(digitalRead(pinBoton) == LOW) {
+    if(digitalRead(PIN_BOTON) == LOW) {
       delay(200);
       return "ABCD"[opcionSeleccionada];
     }

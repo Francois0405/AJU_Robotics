@@ -1,25 +1,34 @@
+#include <Arduino.h>
 #include <Wire.h>
+#include "SpaceRun.h"
+#include "pins.h"
 #include <LiquidCrystal_I2C.h>
 #include <EEPROM.h>
 
-LiquidCrystal_I2C lcd(0x27, 16, 2);
+// Llamamos a la pantalla que se creará en el main.cpp
+extern LiquidCrystal_I2C lcd; 
+
+// --- PROTOTIPOS DE FUNCIONES ---
+void sonarMuerte();
+void sonarLaser();
+String formatearPuntos(long puntos);
+void disparar();
+void generarObstaculo();
+void moverMundo();
+void dibujar();
+void gameOver();
 
 // --- MEMORIA Y PUNTOS ---
 const int EEPROM_ADDR = 0; // Dirección de inicio
-long puntuacion = 0;
-long maxPuntuacion = 0;
-
-// --- HARDWARE ---
-int joystickY = A0;
-int boton = 7;
-int buzzer = 8; 
+static long puntuacion = 0;
+static long maxPuntuacion = 0;
 
 // --- JUEGO ---
 char fila0[16], fila1[16];
 int playerRow = 0;
 bool enMenu = true;
 int seleccion = 0;
-int velocidad = 200;
+unsigned long velocidad = 200; // Corregido el Warning (unsigned long)
 int lastSeleccion = -1;
 String nombres[] = {"EASY", "MED", "HARD", "INSANE"};
 int velocidades[] = {250, 180, 120, 70};
@@ -35,14 +44,14 @@ unsigned long tiempoUltimaNota = 0;
 void sonarMuerte() {
   // Efecto de explosión y caída de energía
   for (int f = 1500; f > 40; f -= 20) {
-    tone(buzzer, f);
+    tone(PIN_BUZZER, f);
     delay(10);
   }
-  noTone(buzzer);
+  noTone(PIN_BUZZER);
 }
 
 void sonarLaser() {
-  tone(buzzer, 1800, 40); // Láser muy agudo y rápido
+  tone(PIN_BUZZER, 1800, 40); // Láser muy agudo y rápido
 }
 
 // -------------------- UTILIDADES --------------------
@@ -116,12 +125,11 @@ void gameOver() {
   lcd.clear();
 }
 
-void setup() {
-  lcd.init();
-  lcd.backlight();
-  pinMode(joystickY, INPUT);
-  pinMode(boton, INPUT_PULLUP);
-  pinMode(buzzer, OUTPUT);
+void setupSpaceRun() {
+  // lcd.init() y lcd.backlight() ya no hacen falta aquí, se hacen en el main.
+  pinMode(PIN_JOY_Y, INPUT);
+  pinMode(PIN_BOTON, INPUT_PULLUP);
+  pinMode(PIN_BUZZER, OUTPUT);
   
   // Recuperar Highscore de forma segura
   EEPROM.get(EEPROM_ADDR, maxPuntuacion);
@@ -131,9 +139,9 @@ void setup() {
   lcd.clear();
 }
 
-void loop() {
+void runSpaceRun() {
   if (enMenu) {
-    int y = analogRead(joystickY);
+    int y = analogRead(PIN_JOY_Y);
     if (y > 700) { seleccion--; delay(200); }
     else if (y < 300) { seleccion++; delay(200); }
     if (seleccion < 0) seleccion = 3;
@@ -146,7 +154,7 @@ void loop() {
       lastSeleccion = seleccion;
     }
 
-    if (digitalRead(boton) == LOW) {
+    if (digitalRead(PIN_BOTON) == LOW) {
       velocidad = velocidades[seleccion];
       puntuacion = 0;
       for (int i = 0; i < 16; i++) { fila0[i] = ' '; fila1[i] = ' '; }
@@ -163,13 +171,13 @@ void loop() {
   // --- REPRODUCTOR MÚSICA (Ritmo dinámico) ---
   if (tiempoActual - tiempoUltimaNota >= (velocidad * 1.8)) {
     tiempoUltimaNota = tiempoActual;
-    tone(buzzer, melodia[notaActual], 60);
+    tone(PIN_BUZZER, melodia[notaActual], 60);
     notaActual = (notaActual + 1) % 12;
   }
 
   // --- INPUTS ---
-  if (digitalRead(boton) == LOW) { disparar(); delay(150); }
-  int y = analogRead(joystickY);
+  if (digitalRead(PIN_BOTON) == LOW) { disparar(); delay(150); }
+  int y = analogRead(PIN_JOY_Y);
   if (y > 700) playerRow = 0; else if (y < 300) playerRow = 1;
 
   // --- MOTOR ---
